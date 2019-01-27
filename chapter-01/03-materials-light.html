@@ -38,13 +38,12 @@
 
         renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMapEnabled = true;
-
+        renderer.shadowMap.enabled = true; // NOTE: If set, use shadow maps in the scene. Default is false.
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(60, 20);
         var planeMaterial = new THREE.MeshLambertMaterial({color: 0xffffff});
         var plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        plane.receiveShadow = true;
+        plane.receiveShadow = true; // NOTE: Whether the material receives shadows. Default is false.
 
         // rotate and position the plane
         plane.rotation.x = -0.5 * Math.PI;
@@ -59,7 +58,7 @@
         var cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
         var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff0000});
         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.castShadow = true;
+        cube.castShadow = true; // NOTE: Whether the object gets rendered into shadow map. Default is false.
 
         // position the cube
         cube.position.x = -4;
@@ -77,7 +76,7 @@
         sphere.position.x = 20;
         sphere.position.y = 4;
         sphere.position.z = 2;
-        sphere.castShadow = true;
+        sphere.castShadow = true; // NOTE: Whether the object gets rendered into shadow map. Default is false.
 
         // add the sphere to the scene
         scene.add(sphere);
@@ -91,7 +90,7 @@
         // add spotlight for the shadows
         var spotLight = new THREE.SpotLight(0xffffff);
         spotLight.position.set(-40, 60, -10);
-        spotLight.castShadow = true;
+        spotLight.castShadow = true; // NOTE: Whether the material receives shadows. Default is false.
         scene.add(spotLight);
 
         // add the output of the renderer to the html element
