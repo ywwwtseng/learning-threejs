@@ -42,7 +42,7 @@
 
         renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMapEnabled = true;
+        renderer.shadowMap.enabled = true;
 
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(60, 20, 1, 1);
@@ -121,7 +121,11 @@
             sphere.position.x = 20 + ( 10 * (Math.cos(step)));
             sphere.position.y = 2 + ( 10 * Math.abs(Math.sin(step)));
 
-            // render using requestAnimationFrame
+            /**
+             * NOTE: The window.requestAnimationFrame() method tells the browser that you
+             * wish to perform an animation and requests that the browser call a specified 
+             * function to update an animation before the next repaint.
+             */
             requestAnimationFrame(renderScene);
             renderer.render(scene, camera);
         }
