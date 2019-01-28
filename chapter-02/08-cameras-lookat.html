@@ -139,6 +139,11 @@
             if (camera instanceof THREE.Camera) {
                 var x = 10 + ( 100 * (Math.sin(step)));
                 camera.lookAt(new THREE.Vector3(x, 10, 0));
+                /**
+                 * NOTE: Object3D's position, rotation, quaternion and scale properties are immutable.
+                 * You must use Object3D.set or Object3D.clone
+                 *  https://github.com/mrdoob/three.js/issues/11372
+                 */
                 lookAtMesh.position.copy(new THREE.Vector3(x, 10, 0));
             }
 
