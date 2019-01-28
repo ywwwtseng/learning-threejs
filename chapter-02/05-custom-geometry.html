@@ -5,7 +5,7 @@
 <head>
     <title>Example 02.05 - Custom geometry</title>
     <script type="text/javascript" src="../libs/three.js"></script>
-
+    <script type="text/javascript" src="../libs/three.SceneUtils.js"></script>
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
     <style>
@@ -43,7 +43,7 @@
 
         renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMapEnabled = true;
+        renderer.shadowMap.enabled = true;
 
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(60, 40, 1, 1);
@@ -112,7 +112,7 @@
         var geom = new THREE.Geometry();
         geom.vertices = vertices;
         geom.faces = faces;
-        geom.computeFaceNormals();
+        geom.computeFaceNormals(); // NOTE:  Computes face normals.
 
 
         var materials = [
@@ -170,7 +170,7 @@
                 mesh2.translateX(5);
                 mesh2.translateZ(5);
                 mesh2.name = "clone";
-                scene.remove(scene.getChildByName("clone"));
+                scene.remove(scene.getObjectByName("clone"));
                 scene.add(mesh2);
 
 
@@ -201,6 +201,10 @@
             }
 
             mesh.children.forEach(function (e) {
+                /**
+                 * NOTE: The array of vertices holds the position of every vertex in the model.
+                 * To signal an update in this array, .verticesNeedUpdate needs to be set to true.
+                 */
                 e.geometry.vertices = vertices;
                 e.geometry.verticesNeedUpdate = true;
                 e.geometry.computeFaceNormals();
