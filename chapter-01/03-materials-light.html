@@ -36,7 +36,7 @@
         // create a render and set the size
         var renderer = new THREE.WebGLRenderer();
 
-        renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        renderer.setClearColor(0xEEEEEE, 1);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.shadowMap.enabled = true; // NOTE: If set, use shadow maps in the scene. Default is false.
         // create the ground plane
