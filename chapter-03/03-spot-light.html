@@ -158,8 +158,7 @@
             this.angle = 0.1;
             this.debug = false;
             this.castShadow = true;
-            // NOTE: THREE.Light: .onlyShadow has been removed.
-            // this.onlyShadow = false;
+            // this.onlyShadow = false; // NOTE: THREE.Light: .onlyShadow has been removed.
             this.target = "Plane";
             this.stopMovingLight = false;
 
@@ -197,8 +196,7 @@
         gui.add(controls, 'castShadow').onChange(function (e) {
             spotLight.castShadow = e;
         });
-        // NOTE: THREE.Light: .onlyShadow has been removed.
-        // gui.add(controls, 'onlyShadow').onChange(function (e) {
+        // gui.add(controls, 'onlyShadow').onChange(function (e) { // NOTE: THREE.Light: .onlyShadow has been removed.
             // spotLight.onlyShadow = e;
         // });
 
