@@ -43,7 +43,7 @@
 
         renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMapEnabled = true;
+        renderer.shadowMap.enabled = true;
 
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(600, 200, 20, 20);
@@ -107,17 +107,17 @@
         var directionalLight = new THREE.DirectionalLight(pointColor);
         directionalLight.position.set(-40, 60, -10);
         directionalLight.castShadow = true;
-        directionalLight.shadowCameraNear = 2;
-        directionalLight.shadowCameraFar = 200;
-        directionalLight.shadowCameraLeft = -50;
-        directionalLight.shadowCameraRight = 50;
-        directionalLight.shadowCameraTop = 50;
-        directionalLight.shadowCameraBottom = -50;
+        directionalLight.shadow.camera.near = 2;
+        directionalLight.shadow.camera.far = 200;
+        directionalLight.shadow.camera.left = -50;
+        directionalLight.shadow.camera.right = 50;
+        directionalLight.shadow.camera.top = 50;
+        directionalLight.shadow.camera.bottom = -50;
 
         directionalLight.distance = 0;
         directionalLight.intensity = 0.5;
-        directionalLight.shadowMapHeight = 1024;
-        directionalLight.shadowMapWidth = 1024;
+        // directionalLight.shadowMapHeight = 1024;
+        // directionalLight.shadowMapWidth = 1024;
 
 
         scene.add(directionalLight);
@@ -177,7 +177,7 @@
         });
 
         gui.add(controls, 'debug').onChange(function (e) {
-            directionalLight.shadowCameraVisible = e;
+            directionalLight.shadow.camera.visible = e;
         });
 
         gui.add(controls, 'castShadow').onChange(function (e) {
