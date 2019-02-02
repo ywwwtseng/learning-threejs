@@ -49,7 +49,8 @@
 
 
         // create the ground plane
-        var textureGrass = THREE.ImageUtils.loadTexture("../assets/textures/ground/grasslight-big.jpg"); // NOTE: THREE.ImageUtils.loadTexture has been deprecated. Use THREE.TextureLoader() instead.
+        var textureLoader = new THREE.TextureLoader();
+        var textureGrass = textureLoader.load("../assets/textures/ground/grasslight-big.jpg");
         textureGrass.wrapS = THREE.RepeatWrapping;
         textureGrass.wrapT = THREE.RepeatWrapping;
         textureGrass.repeat.set(4, 4);
