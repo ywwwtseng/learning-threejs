@@ -43,7 +43,7 @@
 
         renderer.setClearColor(0xEEEEEE, 1);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMapEnabled = false;
+        renderer.shadowMap.enabled = false;
 
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(60, 40, 1, 1);
@@ -95,13 +95,14 @@
         mats.push(new THREE.MeshBasicMaterial({color: 0xffffff}));
         mats.push(new THREE.MeshBasicMaterial({color: 0xffffff}));
 
-        var faceMaterial = new THREE.MeshFaceMaterial(mats);
+        // NOTE: THREE.MeshFaceMaterial has been removed. Use an Array instead.
+        // var faceMaterial = new THREE.MeshFaceMaterial(mats);
 
         for (var x = 0; x < 3; x++) {
             for (var y = 0; y < 3; y++) {
                 for (var z = 0; z < 3; z++) {
                     var cubeGeom = new THREE.BoxGeometry(2.9, 2.9, 2.9);
-                    var cube = new THREE.Mesh(cubeGeom, faceMaterial);
+                    var cube = new THREE.Mesh(cubeGeom, mats);
                     cube.position.set(x * 3 - 3, y * 3, z * 3 - 3);
 
                     group.add(cube);

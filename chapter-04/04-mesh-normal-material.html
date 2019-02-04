@@ -8,7 +8,7 @@
 
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
-    <script type="text/javascript" src="../libs/CanvasRenderer.js"></script>
+    <!-- <script type="text/javascript" src="../libs/CanvasRenderer.js"></script> -->
     <script type="text/javascript" src="../libs/Projector.js"></script>
 
     <style>
@@ -44,12 +44,12 @@
         // create a render and set the size
         var renderer;
         var webGLRenderer = new THREE.WebGLRenderer();
-        webGLRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        webGLRenderer.setClearColor(0xEEEEEE, 1.0);
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-        webGLRenderer.shadowMapEnabled = true;
+        webGLRenderer.shadowMap.enabled = true;
 
-        var canvasRenderer = new THREE.CanvasRenderer();
-        canvasRenderer.setSize(window.innerWidth, window.innerHeight);
+        // var canvasRenderer = new THREE.CanvasRenderer();
+        // canvasRenderer.setSize(window.innerWidth, window.innerHeight);
         renderer = webGLRenderer;
 
         var groundGeom = new THREE.PlaneGeometry(100, 100, 4, 4);
@@ -63,7 +63,7 @@
         var planeGeometry = new THREE.PlaneGeometry(14, 14, 4, 4);
 
 
-        var meshMaterial = new THREE.MeshNormalMaterial({color: 0x7777ff});
+        var meshMaterial = new THREE.MeshNormalMaterial();
         var sphere = new THREE.Mesh(sphereGeometry, meshMaterial);
         var cube = new THREE.Mesh(cubeGeometry, meshMaterial);
         var plane = new THREE.Mesh(planeGeometry, meshMaterial);
@@ -82,12 +82,13 @@
             centroid.divideScalar(3);
 
             var arrow = new THREE.ArrowHelper(
-                    face.normal,
-                    centroid,
-                    2,
-                    0x3333FF,
-                    0.5,
-                    0.5);
+                face.normal,
+                centroid,
+                2,
+                0x3333FF,
+                0.5,
+                0.5
+            );
             sphere.add(arrow);
         }
 
@@ -240,7 +241,7 @@
 
             }
 
-            scene.add(e);
+            // scene.add(e);
         });
 
         render();
