@@ -5,6 +5,7 @@
 <head>
     <title>Example 05.08 - Basic 3D geometries - Torusknot</title>
     <script type="text/javascript" src="../libs/three.js"></script>
+    <script type="text/javascript" src="../libs/three.SceneUtils.js"></script>
 
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
@@ -40,11 +41,11 @@
 
         // create a render and set the size
         var webGLRenderer = new THREE.WebGLRenderer();
-        webGLRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        webGLRenderer.setClearColor(0xEEEEEE, 1.0);
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-        webGLRenderer.shadowMapEnabled = true;
+        webGLRenderer.shadowMap.enabled = true;
 
-        var knot = createMesh(new THREE.TorusKnotGeometry(10, 1, 64, 8, 2, 3, 1));
+        var knot = createMesh(new THREE.TorusKnotGeometry(10, 1, 64, 8, 2, 3));
         // add the sphere to the scene
         scene.add(knot);
 
@@ -70,14 +71,22 @@
             this.tubularSegments = knot.children[0].geometry.parameters.tubularSegments;
             this.p = knot.children[0].geometry.parameters.p;
             this.q = knot.children[0].geometry.parameters.q;
-            this.heightScale = knot.children[0].geometry.parameters.heightScale;
 
             this.redraw = function () {
                 // remove the old plane
                 scene.remove(knot);
                 // create a new one
 
-                knot = createMesh(new THREE.TorusKnotGeometry(controls.radius, controls.tube, Math.round(controls.radialSegments), Math.round(controls.tubularSegments), Math.round(controls.p), Math.round(controls.q), controls.heightScale));
+                // knot = createMesh(new THREE.TorusKnotGeometry(controls.radius, controls.tube, Math.round(controls.radialSegments), Math.round(controls.tubularSegments), Math.round(controls.p), Math.round(controls.q), controls.heightScale));
+                knot = createMesh(new THREE.TorusKnotGeometry(
+                    controls.radius, 
+                    controls.tube, 
+                    Math.round(controls.radialSegments), 
+                    Math.round(controls.tubularSegments), 
+                    Math.round(controls.p), 
+                    Math.round(controls.q),
+                ));
+
                 // add it to the scene.
                 scene.add(knot);
             };
@@ -87,10 +96,9 @@
         gui.add(controls, 'radius', 0, 40).onChange(controls.redraw);
         gui.add(controls, 'tube', 0, 40).onChange(controls.redraw);
         gui.add(controls, 'radialSegments', 0, 400).step(1).onChange(controls.redraw);
-        gui.add(controls, 'tubularSegments', 1, 20).step(1).onChange(controls.redraw);
+        gui.add(controls, 'tubularSegments', 1, 100).step(1).onChange(controls.redraw);
         gui.add(controls, 'p', 1, 10).step(1).onChange(controls.redraw);
         gui.add(controls, 'q', 1, 15).step(1).onChange(controls.redraw);
-        gui.add(controls, 'heightScale', 0, 5).onChange(controls.redraw);
 
 
         render();
