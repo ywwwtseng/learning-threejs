@@ -5,6 +5,8 @@
 <head>
     <title>Example 06.01 - Advanced 3D geometries - Convex Hull</title>
     <script type="text/javascript" src="../libs/three.js"></script>
+    <script type="text/javascript" src="../libs/three.SceneUtils.js"></script>
+
 
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/ConvexGeometry.js"></script>
@@ -41,9 +43,9 @@
 
         // create a render and set the size
         var webGLRenderer = new THREE.WebGLRenderer();
-        webGLRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        webGLRenderer.setClearColor(0xEEEEEE, 1.0);
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-        webGLRenderer.shadowMapEnabled = true;
+        webGLRenderer.shadowMap.enabled = true;
 
         // position and point the camera to the center of the scene
         camera.position.x = -30;
@@ -67,14 +69,12 @@
         // setup the control gui
         var controls = new function () {
             // we need the first child, since it's a multimaterial
-
             this.redraw = function () {
                 scene.remove(spGroup);
                 scene.remove(hullMesh);
                 generatePoints();
 
             };
-
         };
 
         var gui = new dat.GUI();
@@ -97,7 +97,6 @@
             spGroup = new THREE.Object3D();
             var material = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: false});
             points.forEach(function (point) {
-
                 var spGeom = new THREE.SphereGeometry(0.2);
                 var spMesh = new THREE.Mesh(spGeom, material);
                 spMesh.position.copy(point);
@@ -113,7 +112,6 @@
         }
 
         function createMesh(geom) {
-
             // assign two materials
             var meshMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00, transparent: true, opacity: 0.2});
             meshMaterial.side = THREE.DoubleSide;
@@ -138,7 +136,6 @@
         }
 
         function initStats() {
-
             var stats = new Stats();
             stats.setMode(0); // 0: fps, 1: ms
 
