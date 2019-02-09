@@ -40,9 +40,9 @@
         // create a render and set the size
         var renderer = new THREE.WebGLRenderer();
 
-        renderer.setClearColor(new THREE.Color(0x000000, 1.0));
+        renderer.setClearColor(0x000000, 1.0);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMapEnabled = true;
+        renderer.shadowMap.enabled = true;
 
 
         // position and point the camera to the center of the scene
@@ -64,13 +64,12 @@
         // get the turtle
         var points = gosper(4, 60);
 
-
         var lines = new THREE.Geometry();
         var colors = [];
         var i = 0;
         points.forEach(function (e) {
             lines.vertices.push(new THREE.Vector3(e.x, e.z, e.y));
-            colors[i] = new THREE.Color(0xffffff);
+            colors[i] = new THREE.Color();
             colors[i].setHSL(e.x / 100 + 0.5, (  e.y * 20 ) / 300, 0.8);
             i++;
         });
