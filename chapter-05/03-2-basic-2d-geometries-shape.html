@@ -5,6 +5,7 @@
 <head>
     <title>Example 05.03 - Basic 2D geometries - Shape</title>
     <script type="text/javascript" src="../libs/three.js"></script>
+    <script type="text/javascript" src="../libs/three.SceneUtils.js"></script>
 
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
@@ -40,9 +41,9 @@
 
         // create a render and set the size
         var webGLRenderer = new THREE.WebGLRenderer();
-        webGLRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        webGLRenderer.setClearColor(0xEEEEEE, 1.0);
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-        webGLRenderer.shadowMapEnabled = true;
+        webGLRenderer.shadowMap.enabled = true;
 
         var shape = createMesh(new THREE.ShapeGeometry(drawShape()));
         // add the sphere to the scene
@@ -83,16 +84,7 @@
                 // remove the old plane
                 scene.remove(shape);
                 // create a new one
-                shape = createLine(drawShape(), false);
-                // add it to the scene.
-                scene.add(shape);
-            };
-
-            this.asSpacedPoints = function () {
-                // remove the old plane
-                scene.remove(shape);
-                // create a new one
-                shape = createLine(drawShape(), true);
+                shape = createLine(drawShape());
                 // add it to the scene.
                 scene.add(shape);
             };
@@ -101,7 +93,6 @@
         var gui = new dat.GUI();
         gui.add(controls, 'asGeom');
         gui.add(controls, 'asPoints');
-        gui.add(controls, 'asSpacedPoints');
 
 
         render();
@@ -121,11 +112,11 @@
             shape.bezierCurveTo(15, 25, 25, 25, 30, 40);
 
             // spline back down
-            shape.splineThru(
-                    [new THREE.Vector2(32, 30),
-                        new THREE.Vector2(28, 20),
-                        new THREE.Vector2(30, 10),
-                    ]);
+            shape.splineThru([
+                new THREE.Vector2(32, 30),
+                new THREE.Vector2(28, 20),
+                new THREE.Vector2(30, 10),
+            ]);
 
             // curve at the bottom
             shape.quadraticCurveTo(20, 15, 10, 10);
@@ -165,20 +156,12 @@
 
         function createLine(shape, spaced) {
             console.log(shape);
-            if (!spaced) {
-                var mesh = new THREE.Line(shape.createPointsGeometry(10), new THREE.LineBasicMaterial({
-                    color: 0xff3333,
-                    linewidth: 2
-                }));
-                return mesh;
-            } else {
-                var mesh = new THREE.Line(shape.createSpacedPointsGeometry(3), new THREE.LineBasicMaterial({
-                    color: 0xff3333,
-                    linewidth: 2
-                }));
-                return mesh;
-            }
 
+            var lineGeometry = new THREE.Geometry().setFromPoints(shape.getPoints());
+            var lineMaterial = new THREE.LineBasicMaterial({color: 0xff3333, linewidth: 2});
+            var mesh = new THREE.Line(lineGeometry, lineMaterial);
+
+            return mesh;
         }
 
         function render() {
