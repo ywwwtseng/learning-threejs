@@ -5,6 +5,7 @@
 <head>
     <title>Example 06.03 - Extrude Geometry</title>
     <script type="text/javascript" src="../libs/three.js"></script>
+    <script type="text/javascript" src="../libs/three.SceneUtils.js"></script>
 
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
@@ -40,9 +41,9 @@
 
         // create a render and set the size
         var webGLRenderer = new THREE.WebGLRenderer();
-        webGLRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        webGLRenderer.setClearColor(0xEEEEEE, 1.0);
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-        webGLRenderer.shadowMapEnabled = true;
+        webGLRenderer.shadowMap.enabled = true;
 
         var shape = createMesh(new THREE.ShapeGeometry(drawShape()));
         // add the sphere to the scene
@@ -64,7 +65,7 @@
         // setup the control gui
         var controls = new function () {
 
-            this.amount = 2;
+            this.depth = 2;
             this.bevelThickness = 2;
             this.bevelSize = 0.5;
             this.bevelEnabled = true;
@@ -79,7 +80,7 @@
                 // create a new one
 
                 var options = {
-                    amount: controls.amount,
+                    depth: controls.depth,
                     bevelThickness: controls.bevelThickness,
                     bevelSize: controls.bevelSize,
                     bevelSegments: controls.bevelSegments,
@@ -96,7 +97,7 @@
         };
 
         var gui = new dat.GUI();
-        gui.add(controls, 'amount', 0, 20).onChange(controls.asGeom);
+        gui.add(controls, 'depth', 0, 20).onChange(controls.asGeom);
         gui.add(controls, 'bevelThickness', 0, 10).onChange(controls.asGeom);
         gui.add(controls, 'bevelSize', 0, 10).onChange(controls.asGeom);
         gui.add(controls, 'bevelSegments', 0, 30).step(1).onChange(controls.asGeom);
@@ -156,7 +157,7 @@
 
             // assign two materials
             var meshMaterial = new THREE.MeshNormalMaterial({
-                shading: THREE.FlatShading,
+                flatShading: THREE.FlatShading,
                 transparent: true,
                 opacity: 0.7
             });
