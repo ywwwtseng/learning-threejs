@@ -5,6 +5,7 @@
 <head>
     <title>Example 06.02 - Advanced 3D geometries - Lathe</title>
     <script type="text/javascript" src="../libs/three.js"></script>
+    <script type="text/javascript" src="../libs/three.SceneUtils.js"></script>
 
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
@@ -40,9 +41,9 @@
 
         // create a render and set the size
         var webGLRenderer = new THREE.WebGLRenderer();
-        webGLRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        webGLRenderer.setClearColor(0xEEEEEE, 1.0);
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-        webGLRenderer.shadowMapEnabled = true;
+        webGLRenderer.shadowMap.enabled = true;
 
         // position and point the camera to the center of the scene
         camera.position.x = -30;
@@ -92,7 +93,11 @@
             var height = 5;
             var count = 30;
             for (var i = 0; i < count; i++) {
-                points.push(new THREE.Vector3((Math.sin(i * 0.2) + Math.cos(i * 0.3)) * height + 12, 0, ( i - count ) + count / 2));
+                points.push(new THREE.Vector3(
+                    (Math.sin(i * 0.2) + Math.cos(i * 0.3)) * height + 12,  
+                    ( i - count ) + count / 2,
+                    0,
+                ));
             }
 
             spGroup = new THREE.Object3D();
@@ -108,6 +113,7 @@
             scene.add(spGroup);
 
             // use the same points to create a LatheGeometry
+
             var latheGeometry = new THREE.LatheGeometry(points, segments, phiStart, phiLength);
             latheMesh = createMesh(latheGeometry);
 
