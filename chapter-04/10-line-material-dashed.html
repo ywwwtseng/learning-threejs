@@ -40,9 +40,9 @@
         // create a render and set the size
         var renderer = new THREE.WebGLRenderer();
 
-        renderer.setClearColor(new THREE.Color(0x000000, 1.0));
+        renderer.setClearColor(0x000000, 1.0);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMapEnabled = true;
+        renderer.shadowMap.enabled = true;
 
 
         // position and point the camera to the center of the scene
@@ -77,7 +77,6 @@
 
         lines.colors = colors;
 
-        lines.computeLineDistances();
         var material = new THREE.LineDashedMaterial({
             vertexColors: true,
             color: 0xffffff,
@@ -87,6 +86,7 @@
         });
 
         var line = new THREE.Line(lines, material);
+        line.computeLineDistances();
         line.position.set(25, -30, -60);
         scene.add(line);
 
