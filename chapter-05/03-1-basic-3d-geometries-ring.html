@@ -5,6 +5,7 @@
 <head>
     <title>Example 05.03 - Basic 2D geometries - Ring</title>
     <script type="text/javascript" src="../libs/three.js"></script>
+    <script type="text/javascript" src="../libs/three.SceneUtils.js"></script>
 
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
@@ -40,33 +41,16 @@
 
         // create a render and set the size
         var webGLRenderer = new THREE.WebGLRenderer();
-        webGLRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        webGLRenderer.setClearColor(0xEEEEEE, 1.0);
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-        webGLRenderer.shadowMapEnabled = true;
-
-        var torus = createMesh(new THREE.RingGeometry());
-        // add the sphere to the scene
-        scene.add(torus);
-
-        // position and point the camera to the center of the scene
-        camera.position.x = -30;
-        camera.position.y = 40;
-        camera.position.z = 50;
-        camera.lookAt(new THREE.Vector3(10, 0, 0));
-
-        // add the output of the renderer to the html element
-        document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
-
-        // call the render function
-        var step = 0;
-
+        webGLRenderer.shadowMap.enabled = true;
 
         // setup the control gui
         var controls = new function () {
             // we need the first child, since it's a multimaterial
 
             this.innerRadius = 0;
-            this.outerRadius = 50;
+            this.outerRadius = 20;
             this.thetaSegments = 8;
             this.phiSegments = 8;
             this.thetaStart = 0;
@@ -91,6 +75,21 @@
         gui.add(controls, 'thetaStart', 0, Math.PI * 2).onChange(controls.redraw);
         gui.add(controls, 'thetaLength', 0, Math.PI * 2).onChange(controls.redraw);
 
+        var torus = createMesh(new THREE.RingGeometry(controls.innerRadius, controls.outerRadius, controls.thetaSegments, controls.phiSegments, controls.thetaStart, controls.thetaLength));
+        // add the sphere to the scene
+        scene.add(torus);
+
+        // position and point the camera to the center of the scene
+        camera.position.x = -30;
+        camera.position.y = 40;
+        camera.position.z = 50;
+        camera.lookAt(new THREE.Vector3(10, 0, 0));
+
+        // add the output of the renderer to the html element
+        document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
+
+        // call the render function
+        var step = 0;
 
         render();
 
