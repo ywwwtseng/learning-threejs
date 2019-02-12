@@ -5,13 +5,11 @@
 <head>
     <title>Example 06.07 - Text geometry</title>
     <script type="text/javascript" src="../libs/three.js"></script>
+    <script type="text/javascript" src="../libs/three.SceneUtils.js"></script>
+    <script type="text/javascript" src="../assets/fonts//helvetiker_regular.typeface.js"></script>
 
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
-    <script type="text/javascript" src="../assets/fonts/helvetiker_regular.typeface.js"></script>
-    <script type="text/javascript" src="../assets/fonts/helvetiker_bold.typeface.js"></script>
-    <script type="text/javascript" src="../assets/fonts/bitstream_vera_sans_mono_roman.typeface.js"></script>
-
     <style>
         body {
             /* set margin to 0 and overflow to hidden, to go fullscreen */
@@ -44,9 +42,9 @@
 
         // create a render and set the size
         var webGLRenderer = new THREE.WebGLRenderer();
-        webGLRenderer.setClearColor(new THREE.Color(0x000000, 1.0));
+        webGLRenderer.setClearColor(0x000000, 1.0);
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-        webGLRenderer.shadowMapEnabled = true;
+        webGLRenderer.shadowMap.enabled = true;
 
         // position and point the camera to the center of the scene
         camera.position.x = 100;
@@ -69,12 +67,10 @@
         // call the render function
         var step = 0;
 
-
         var text1;
         var text2;
 
         var controls = new function () {
-
             this.size = 90;
             this.height = 90;
             this.bevelThickness = 2;
@@ -84,9 +80,7 @@
             this.bevelEnabled = true;
             this.curveSegments = 12;
             this.steps = 1;
-            this.font = "helvetiker";
             this.weight = "normal";
-//            this.style = "italics";
 
             this.asGeom = function () {
                 // remove the old plane
@@ -98,7 +92,7 @@
                     size: controls.size,
                     height: controls.height,
                     weight: controls.weight,
-                    font: controls.font,
+                    font: new THREE.Font(helvetiker_regular),
                     bevelThickness: controls.bevelThickness,
                     bevelSize: controls.bevelSize,
                     bevelSegments: controls.bevelSegments,
@@ -107,14 +101,14 @@
                     steps: controls.steps
                 };
 
-                console.log(THREE.FontUtils.faces);
-
                 text1 = createMesh(new THREE.TextGeometry("Learning", options));
+                text1.position.x = 100;
                 text1.position.z = -100;
                 text1.position.y = 100;
                 scene.add(text1);
 
                 text2 = createMesh(new THREE.TextGeometry("Three.js", options));
+                text2.position.x = 100;
                 scene.add(text2);
             };
 
@@ -125,7 +119,6 @@
         var gui = new dat.GUI();
         gui.add(controls, 'size', 0, 200).onChange(controls.asGeom);
         gui.add(controls, 'height', 0, 200).onChange(controls.asGeom);
-        gui.add(controls, 'font', ['bitstream vera sans mono', 'helvetiker']).onChange(controls.asGeom);
         gui.add(controls, 'bevelThickness', 0, 10).onChange(controls.asGeom);
         gui.add(controls, 'bevelSize', 0, 10).onChange(controls.asGeom);
         gui.add(controls, 'bevelSegments', 0, 30).step(1).onChange(controls.asGeom);
@@ -146,7 +139,6 @@
                 specular: 0xffffff,
                 color: 0xeeffff,
                 shininess: 100,
-                metal: true
             });
 //            meshMaterial.side=THREE.DoubleSide;
             // create a multimaterial
