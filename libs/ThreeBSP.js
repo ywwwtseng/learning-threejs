@@ -79,7 +79,6 @@
       }
       geometry = this.toGeometry();
       return returning((mesh = new THREE.Mesh(geometry, material)), function() {
-        mesh.position.getPositionFromMatrix(_this.matrix);
         return mesh.rotation.setFromRotationMatrix(_this.matrix);
       });
     };

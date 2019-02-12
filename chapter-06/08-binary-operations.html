@@ -45,7 +45,7 @@
         var webGLRenderer = new THREE.WebGLRenderer();
         webGLRenderer.setClearColor(0x999999, 1.0);
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-        webGLRenderer.shadowMapEnabled = true;
+        webGLRenderer.shadowMap.enabled = true;
 
         var sphere1 = createMesh(new THREE.SphereGeometry(5, 20, 30));
         sphere1.position.x = -2;
@@ -230,8 +230,8 @@
                     // do nothing
                 } else {
                     result = resultBSP.toMesh();
-                    result.geometry.computeFaceNormals();
-                    result.geometry.computeVertexNormals();
+                    // result.geometry.computeFaceNormals();
+                    // result.geometry.computeVertexNormals();
                     scene.add(result);
                 }
 
@@ -244,7 +244,7 @@
             // assign two materials
             var meshMaterial = new THREE.MeshNormalMaterial();
             meshMaterial.side = THREE.DoubleSide;
-            var wireFrameMat = new THREE.MeshBasicMaterial({transparency: true, opacity: 0.5, wireframeLinewidth: 0.5});
+            var wireFrameMat = new THREE.MeshBasicMaterial({opacity: 0.5, wireframeLinewidth: 0.5});
             wireFrameMat.wireframe = true;
 
             // create a multimaterial
