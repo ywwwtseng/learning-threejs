@@ -30,10 +30,8 @@
 
 <!-- Javascript code that runs our Three.js examples -->
 <script type="text/javascript">
-
     // once everything is loaded, we run our Three.js stuff.
     function init() {
-
         var stats = initStats();
 
         // create a scene, that will hold all our elements such as objects, cameras and lights.
@@ -46,7 +44,7 @@
         var canvasRenderer = new THREE.CanvasRenderer();
 //        var canvasRenderer = new THREE.WebGLRenderer();
 
-        canvasRenderer.setClearColor(new THREE.Color(0x000000, 1.0));
+        canvasRenderer.setClearColor(0x000000, 1.0);
         canvasRenderer.setSize(window.innerWidth, window.innerHeight);
 
         // position and point the camera to the center of the scene
@@ -58,7 +56,6 @@
         document.getElementById("WebGL-output").appendChild(canvasRenderer.domElement);
 
         var getTexture = function (ctx) {
-
             // the body
             ctx.translate(-81, -84);
 
@@ -100,20 +97,16 @@
             ctx.beginPath();
             ctx.arc(89, 102, 2, 0, Math.PI * 2, true);
             ctx.fill();
-
         };
-
 
         createSprites();
         render();
 
-
         function createSprites() {
             var material = new THREE.SpriteCanvasMaterial({
-                        program: getTexture,
-                        color: 0xffffff
-                    }
-            );
+                program: getTexture,
+                color: 0xffffff,
+            });
 
             material.rotation = Math.PI;
 
@@ -130,7 +123,6 @@
         var step = 0;
 
         function render() {
-
             stats.update();
 
             requestAnimationFrame(render);
@@ -138,7 +130,6 @@
         }
 
         function initStats() {
-
             var stats = new Stats();
             stats.setMode(0); // 0: fps, 1: ms
 
